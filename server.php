@@ -12,8 +12,8 @@ $specs = new OptionCollection;
 $specs->add('d|daemon', 'Run server as a daemon (require ext-swoole).');
 $specs->add('h|host?', 'WebSocket server host.')->isa('string')->defaultValue('0.0.0.0');
 $specs->add('p|port?', 'WebSocket server port.')->isa('number')->defaultValue(9028);
+$specs->add('s|swoole', 'Use swoole to run server.');
 $specs->add('t|tcp-host?', 'TCP server host (require ext-swoole).')->isa('string');
-$specs->add('s|swoole', 'Run server via swoole.');
 $specs->add('tcp-port?', 'TCP server port (require ext-swoole).')->isa('number')->defaultValue(9030);
 $specs->add('help', 'Print this help.' );
 
