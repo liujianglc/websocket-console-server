@@ -25,11 +25,10 @@ try {
 }
 
 if ($option->help) {
-    $printer = new ConsoleOptionPrinter();
     Cli::out(
         "Usage: php server.php [options]" . PHP_EOL . PHP_EOL .
         "Options: " . PHP_EOL .
-        $printer->render($specs)
+        (new ConsoleOptionPrinter)->render($specs)
     );
 } else {
     Cli::out("WebSocket server is running on " . sprintf("ws://%s:%d", $option->host, $option->port));

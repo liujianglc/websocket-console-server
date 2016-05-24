@@ -33,13 +33,16 @@ class SwooleServer extends ServerAbstract
         if (! empty($options['tcp-host'])) {
             $this->server->addlistener($options['tcp-host'], $options['tcp-port'], SWOOLE_SOCK_TCP)->set(
                 array(
-                    'package_max_length' => 8192,
+                    'open_length_check' => true,
+                    'package_length_type' => 'N',
+                    'package_length_offset' => 0,
+                    'package_body_offset' => 4,
+                    'package_max_length' => 102400,
                     'open_eof_check' => true,
-                    'package_eof' => "\r\n"
                 )
             );
             $this->server->on('Receive', function ($server, $fd, $from, $data) {
-                $this->process($data, $fd);
+                $this->process(substr($data, 4), $fd);
             });
             Cli::out("Additionally listening on " . sprintf("tcp://%s:%d", $options['tcp-host'], $options['tcp-port']));
         }
