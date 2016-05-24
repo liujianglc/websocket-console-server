@@ -11,6 +11,7 @@ use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
 $specs = new OptionCollection;
 $specs->add('d|daemon', 'Run server as a daemon (require ext-swoole).');
 $specs->add('h|host?', 'WebSocket server host.')->isa('string')->defaultValue('0.0.0.0');
+$specs->add('l|log-file?', 'Log file to write to when running as a daemon.');
 $specs->add('p|port?', 'WebSocket server port.')->isa('number')->defaultValue(9028);
 $specs->add('s|swoole', 'Use swoole to run server.');
 $specs->add('t|tcp-host?', 'TCP server host (require ext-swoole).')->isa('string');
@@ -38,6 +39,7 @@ if ($option->help) {
             'tcp-host' => $option->{"tcp-host"},
             'tcp-port' => $option->{"tcp-port"},
             'daemon' => $option->daemon ? 1 : 0,
+            'log-file' => $option->{"log-file"},
         );
     } else {
         $server = new WsConsoleServer\HoaServer;

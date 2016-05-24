@@ -18,7 +18,8 @@ class SwooleServer extends ServerAbstract
         $this->server = new \swoole_websocket_server($host, $port);
         $this->server->set(array(
             'task_worker_num' => 8,
-            'daemonize' => $options['daemon']
+            'daemonize' => $options['daemon'],
+            'log_file' => $options['log-file'],
         ));
         $this->server->on('Close', array($this, 'onClose'));
         $this->server->on('Message', function ($server, $frame) {
