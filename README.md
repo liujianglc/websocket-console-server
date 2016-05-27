@@ -1,10 +1,12 @@
 # WebSocket Console Server
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/joy2fun/websocket-console-server.svg)](https://packagist.org/packages/joy2fun/websocket-console-server)
+
 WebSocket Console Server 是一个简单的WebSocket服务器，它可以在程序和浏览器之间传输数据，
 PHP程序连接WebSocket服务器后，将约定格式的数据发送给服务器，再由服务器转发给**所有**已连接的[浏览器客户端](http://php.html.js.cn/console/) ，
 就实现了程序数据、日志等信息的实时、集中化展示。
 
-## 使用Composer安装：
+## 使用Composer安装
 
 ```sh
 composer create-project -s dev joy2fun/websocket-console-server myserver
@@ -19,7 +21,7 @@ WebSocket默认服务地址为：`ws://你的IP:9028`，启动后可以访问 [h
 
 Windows下建议使用Git Bash命令行。
 
-## 更多命令行选项：
+## 更多命令行选项
 
 |参数|类型|默认值|说明|
 |---|---|---|---|
@@ -50,7 +52,7 @@ Windows下建议使用Git Bash命令行。
 
 ## 启用TCP服务
 
-为了提高性能，WebSocket 服务端还可以追加监听一个TCP服务端口(需要swoole扩展)，允许客户端使用TCP连接并发送数据：
+为了提高性能，WebSocket 服务端还可以追加监听一个TCP服务端口(需要[Swoole](https://github.com/swoole/swoole-src)扩展)，允许客户端使用TCP连接并发送数据：
 
 ```sh
 ./server -h 192.168.1.123 -p 9028 -t 192.168.1.123 --tcp-port 9030
