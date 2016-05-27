@@ -1,8 +1,8 @@
 # WebSocket Console Server
 
-WebSocket Console Server 可以用来快速搭建 WebSocket 服务器，
-方便将应用程序数据、日志等信息转发到指定客户端(如： [Web 浏览器](http://php.html.js.cn/console/) )。
-
+WebSocket Console Server 是一个简单的WebSocket服务器，它可以在程序和浏览器之间传输数据，
+PHP程序连接WebSocket服务器后，将约定格式的数据发送给服务器，再由服务器转发给**所有**已连接的[浏览器客户端](http://php.html.js.cn/console/) ，
+就实现了程序数据、日志等信息的实时、集中化展示。
 
 ## 使用Composer安装：
 
@@ -35,15 +35,32 @@ Windows下建议使用Git Bash命令行。
 |-t 或 --tcp-host|String| |tcp服务绑定的Host/IP|
 |--tcp-port|Int|9030|tcp服务监听端口|
 
+## 约定数据格式
+
+PHP程序应该发送以下JSON格式的数据：
+
+```php
+json_encode(array(
+    'cmd' => 'publish', // 固定值
+    'content' => 'test', // 实际内容，可以是数组变量
+    'time' => time(), // 可选，时间戳
+    'channel' => 'default', // 发送的频道，便于浏览器按频道过滤
+));
+```
+
+## 使用封装的PHP客户端
+
+[WebSocket Console Client](https://github.com/joy2fun/websocket-console-client) 是一个封装好的PHP类，
+可以方便的连接、发送数据到服务器，不需要关心数据格式。
+
 ## 启用TCP服务
 
-启用TCP需要swoole扩展。
+为了提高性能，WebSocket 服务端还可以追加监听一个TCP服务端口(需要swoole扩展)，允许客户端使用TCP连接并发送数据：
 
 ```sh
 ./server -h 192.168.1.123 -p 9028 -t 192.168.1.123 --tcp-port 9030
 ```
 
-为了提高性能，服务端还可以追加监听一个TCP服务端口，支持客户端使用TCP连接并发送数据。
 TCP 发送数据格式为：固定包长(4个字节网络字节序)+包体(json格式数据)，示例如下：
 
 ```php
@@ -57,7 +74,3 @@ if ($fp = stream_socket_client("tcp://192.168.1.123:9030", $errno, $errstr)) {
     echo "$errstr ($errno)<br />\n";
 }
 ```
-
-## 使用封装的PHP客户端
-
-https://github.com/joy2fun/websocket-console-client
