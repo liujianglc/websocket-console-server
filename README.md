@@ -8,11 +8,6 @@ PHP程序连接WebSocket服务器后，将约定格式的数据发送给服务�
 
 ```sh
 composer create-project -s dev joy2fun/websocket-console-server myserver
-```
-
-## 命令行启动WebSocket服务：
-
-```sh
 # 进入目录
 cd myserver
 # 启动服务
@@ -37,15 +32,15 @@ Windows下建议使用Git Bash命令行。
 
 ## 约定数据格式
 
-PHP程序应该发送以下JSON格式的数据：
+服务器接受JSON格式的数据如下：
 
-```php
-json_encode(array(
-    'cmd' => 'publish', // 固定值
-    'content' => 'test', // 实际内容，可以是数组变量
-    'time' => time(), // 可选，时间戳
-    'channel' => 'default', // 发送的频道，便于浏览器按频道过滤
-));
+```javascript
+{
+    "cmd":"publish", /* 固定值，表示推送给客户端 */
+    "content": "test data" , /* 推送内容 */
+    "time":"", /* 可选，unix时间戳 */ 
+    "channel":"" /* 频道，便于客户端过滤展示 */
+}
 ```
 
 ## 使用封装的PHP客户端
@@ -61,13 +56,13 @@ json_encode(array(
 ./server -h 192.168.1.123 -p 9028 -t 192.168.1.123 --tcp-port 9030
 ```
 
-TCP 发送数据格式为：固定包长(4个字节网络字节序)+包体(json格式数据)，示例如下：
+TCP 发送数据格式为：固定包长(4个字节网络字节序)+包体(json格式数据)，PHP示例如下：
 
 ```php
 if ($fp = stream_socket_client("tcp://192.168.1.123:9030", $errno, $errstr)) {
     $data = json_encode(array(
-        'cmd' => 'publish', // publish 表示广播给客户端
-        'content' => 'test', // 内容
+        'cmd' => 'publish',
+        'content' => 'test',
     ));
     fwrite($fp, pack("N", strlen($data)).$data);
 } else {
