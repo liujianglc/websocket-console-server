@@ -38,7 +38,6 @@ class SwooleServer extends ServerAbstract
                     'package_length_offset' => 0,
                     'package_body_offset' => 4,
                     'package_max_length' => 102400,
-                    'open_eof_check' => true,
                 )
             );
             $this->server->on('Receive', function ($server, $fd, $from, $data) {

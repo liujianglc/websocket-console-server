@@ -4,22 +4,22 @@
 
 WebSocket Console Server 是一个简单的WebSocket服务器，它可以在程序和浏览器之间传输数据，
 PHP程序连接WebSocket服务器后，将约定格式的数据发送给服务器，再由服务器转发给**所有**已连接的[浏览器客户端](http://php.html.js.cn/console/) ，
-就实现了程序数据、日志等信息的实时、集中化展示。
+实现程序数据、日志等信息的实时、集中化展示。
 
 ## 使用Composer安装
 
 ```sh
-composer create-project -s dev joy2fun/websocket-console-server myserver
+composer create-project joy2fun/websocket-console-server myserver
 # 进入目录
 cd myserver
 # 启动服务
 ./server
+# Windows环境可以使用PHP完整路径来运行，例如 E:\php\php.exe server
 ```
 
-WebSocket默认服务地址为：`ws://你的IP:9028`，启动后可以访问 [http://php.html.js.cn/console/](http://php.html.js.cn/console/) 
-测试连接。
+到此，一个WebSocket服务器就搭建完成了，默认地址为：`ws://你的IP:9028` 。
 
-Windows下建议使用Git Bash命令行。
+接下来可以访问[Web客户端](http://php.html.js.cn/console/)进行连接，接收消息。
 
 ## 更多命令行选项
 
@@ -28,7 +28,7 @@ Windows下建议使用Git Bash命令行。
 |-d 或 --daemon| | |以守护进程方式运行(需要Swoole扩展)|
 |-h 或 --host|String|0.0.0.0|绑定的Host/IP，默认任意IP|
 |-p 或 --port|Int|9028|监听端口|
-|-s 或 --swoole| | |强制使用Swoole扩展启动服务(需要Swoole扩展)|
+|-s 或 --swoole| | |强制使用Swoole扩展启动服务|
 |-t 或 --tcp-host|String| |tcp服务绑定的Host/IP|
 |--tcp-port|Int|9030|tcp服务监听端口|
 
@@ -48,7 +48,7 @@ Windows下建议使用Git Bash命令行。
 ## 使用封装的PHP客户端
 
 [WebSocket Console Client](https://github.com/joy2fun/websocket-console-client) 是一个封装好的PHP类，
-可以方便的连接、发送数据到服务器，不需要关心数据格式。
+可以方便的连接、发送数据，用户不需要关心数据格式。
 
 ## 启用TCP服务
 
