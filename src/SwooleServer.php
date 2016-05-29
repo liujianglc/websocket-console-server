@@ -56,7 +56,11 @@ class SwooleServer extends ServerAbstract
 
     public function subscribe($data, $source) {
         $this->subscribers->set($source, array('channel' => $data['channel']));
-        $this->response("Welcome!", $source);
+        if ($data['channel']) {
+            $this->response(sprintf("You have subscribed to [%s].", $data['channel']), $source);
+        } else{
+            $this->response("You have subscribed to ALL channel.", $source);
+        }
         Cli::out(sprintf("%s subscribed to [%s]", $source, $data['channel']));
     }
 

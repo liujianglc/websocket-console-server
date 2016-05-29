@@ -30,7 +30,11 @@ class HoaServer extends ServerAbstract
     public function subscribe($data, $source) {
         $id = $source->getConnection()->getCurrentNode()->getId();
         $this->subscribers[$id]['channel'] = array_filter(explode(",", $data['channel']));
-        $this->response("Welcome!", $source);
+        if ($data['channel']) {
+            $this->response(sprintf("You have subscribed to [%s].", $data['channel']), $source);
+        } else{
+            $this->response("You have subscribed to ALL channel.", $source);
+        }
         Cli::out(sprintf("%s subscribed to [%s]", $id, $data['channel']));
     }
 
