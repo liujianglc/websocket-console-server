@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "php": ">=5.5.0",
     "hoa/websocket": "~3.0",
     "corneltek/getoptionkit": "~2"
   },
