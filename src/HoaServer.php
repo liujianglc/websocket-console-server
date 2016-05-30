@@ -33,7 +33,7 @@ class HoaServer extends ServerAbstract
         if ($data['channel']) {
             $this->response(sprintf("You have subscribed to [%s].", $data['channel']), $source);
         } else{
-            $this->response("You have subscribed to ALL channel.", $source);
+            $this->response("You have subscribed to ALL channels.", $source);
         }
         Cli::out(sprintf("%s subscribed to [%s]", $id, $data['channel']));
     }
