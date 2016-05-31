@@ -65,8 +65,12 @@ class SwooleServer extends ServerAbstract
     }
 
     public function publish($data, $source, $raw = "") {
-        Cli::out(sprintf("%s published to [%s]", $source, $data['channel']));
-        $this->server->task($raw);
+        if (count($this->subscribers)) {
+            Cli::out(sprintf("%s published to [%s]", $source, $data['channel']));
+            $this->server->task($raw);
+        } else {
+            Cli::out(sprintf("%s published to [%s]. No subscribers. Skipped!", $source, $data['channel']));
+        }
     }
 
     public function response($message, $source) {
