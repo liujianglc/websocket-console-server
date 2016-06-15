@@ -77,7 +77,8 @@ abstract class ServerAbstract
     protected function buildMessage($content) {
         return json_encode([
             "time" => time(),
-            "content" => $content
+            "content" => $content,
+            "client" => "[server]",
         ]);
     }
 
@@ -99,6 +100,7 @@ abstract class ServerAbstract
         return array_merge(array(
             "cmd" => "",
             "channel" => "",
+            "client" => "",
         ), $json);
     }
 }
